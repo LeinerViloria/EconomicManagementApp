@@ -36,6 +36,7 @@ namespace EconomicManagementAPP.test
         [TestMethod]
         public void InsertNull_ReturnSuccess()
         {
+            //No da error porque, internamente, si llega null se guarda como 0
             var minZero = new MinZero();
             var data = "";
 
@@ -43,7 +44,7 @@ namespace EconomicManagementAPP.test
 
             var testResult = minZero.GetValidationResult(data, context);
 
-            Assert.AreEqual("The balance must be a decimal", testResult?.ErrorMessage);
+            Assert.IsNull(testResult);
         }
     }
 }
