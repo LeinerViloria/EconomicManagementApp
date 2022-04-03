@@ -4,10 +4,9 @@
     ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
-
-<div class="card">
+<div class="card cardLogin">
     <div class="card-body">
+        <h2 class="text-center">Login</h2>
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -23,12 +22,13 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
-
-            <button class="btn-primary btn">Login</button>
-            <a class="btn btn-success" asp-action="Create">Go to Register</a>
+            <div class="buttons">
+                <button class="btn btn-outline-primary spaceBetweentButtons">Login</button>
+                <a class="btn btn-outline-success spaceBetweentButtons" asp-action="Create">Go to Register</a>
+            </div>
         </form>
 
-    </div>
+    </div>.
 </div>
 
 

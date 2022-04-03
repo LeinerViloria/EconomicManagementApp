@@ -23,22 +23,6 @@ namespace EconomicManagementAPP.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //public async Task<IActionResult> AddFounds(int atId, int id)
-        //{
-        //    var accountType = await repositorieAccountTypes.GetAccountById(atId);
-        //    if (accountType is null)
-        //    {
-        //        return RedirectToAction("NotFound", "Home");
-        //    }
-        //    var account = await repositorieAccounts.GetAccountById(id);
-        //    if (account is null)
-        //    {
-        //        return RedirectToAction("NotFound", "Home");
-        //    }
-        //    return View(account);
-        //}
-
-
         public async Task<IActionResult> Create(int id)
         {
             if (UsersController.valorSesion is null)
@@ -68,15 +52,10 @@ namespace EconomicManagementAPP.Controllers
                 return View(accounts);
             }
 
-
-            // Validamos si ya existe antes de registrar
-            var accountExist =
-               await repositorieAccounts.ExistingAccount(accounts.Name, accounts.AccountTypeId);
+            var accountExist = await repositorieAccounts.ExistingAccount(accounts.Name, accounts.AccountTypeId);
 
             if (accountExist)
             {
-                // AddModelError ya viene predefinido en .net
-                // nameOf es el tipo del campo
                 ModelState.AddModelError(nameof(accounts.Name),
                     $"The account {accounts.Name} already exist.");
 
@@ -94,17 +73,9 @@ namespace EconomicManagementAPP.Controllers
             accounts.Balance = numBalance;
 
             await repositorieAccounts.Create(accounts);
-            // Redireccionamos a la lista
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        //public async Task<ActionResult> AddFounds()
-        //{
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-        // Hace que la validacion se active automaticamente desde el front
         [HttpGet]
         public async Task<IActionResult> VerificaryAccounts(string Name, int AccountTypeId)
         {
@@ -112,14 +83,12 @@ namespace EconomicManagementAPP.Controllers
 
             if (accountExist)
             {
-                // permite acciones directas entre front y back
                 return Json($"The account {Name} already exist");
             }
 
             return Json(true);
         }
 
-        //Actualizar
         [HttpGet]
         public async Task<ActionResult> Modify(int id, int atId)
         {
@@ -134,9 +103,10 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
             account.AccountTypeId = atId;
-            Console.WriteLine("lleva al post"+account.AccountTypeId);
+            Console.WriteLine("lleva al post" + account.AccountTypeId);
             return View(account);
         }
+
         [HttpPost]
         public async Task<ActionResult> Modify(Accounts accounts)
         {
@@ -146,7 +116,7 @@ namespace EconomicManagementAPP.Controllers
             }
             Console.WriteLine("este es el id de cuenta: " + accounts.Id + "este es el id tipos" + accounts.AccountTypeId);
             var account = await repositorieAccounts.GetAccountById(accounts.Id);
-            Console.WriteLine("este es el id de cuenta: "+account.Id+ "este es el id tipo" + account.AccountTypeId);
+            Console.WriteLine("este es el id de cuenta: " + account.Id + "este es el id tipo" + account.AccountTypeId);
             if (account is null)
             {
                 return RedirectToAction("NotFound", "Home");

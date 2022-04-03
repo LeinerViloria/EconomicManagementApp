@@ -4,11 +4,11 @@ namespace EconomicManagementAPP.Interface
 {
     public interface IRepositorieOperationTypes
     {
-        Task Create(OperationTypes operationTypes); // Se agrega task por el asincronismo
+        Task Create(OperationTypes operationTypes);
         Task<bool> Exist(string Description);
         Task<IEnumerable<OperationTypes>> GetOperation();
         Task Modify(OperationTypes operationTypes);
-        Task<OperationTypes> GetOperationById(int id); // para el modify
+        Task<OperationTypes> GetOperationById(int id); 
         Task Delete(int id);
         Task<string> GetOperationTypeByCategoryId(int categoryId, int userId);
     }

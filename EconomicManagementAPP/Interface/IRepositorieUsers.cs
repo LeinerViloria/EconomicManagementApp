@@ -8,7 +8,7 @@ namespace EconomicManagementAPP.Interface
         Task<bool> ExistingUser(string Email);
         Task<IEnumerable<Users>> GetUsers();
         Task Modify(Users users);
-        Task<Users> GetUserById(int id); // para el modify
+        Task<Users> GetUserById(int id);
         Task Delete(int id);
         Task<Users> Login(string email, string password);
         bool Auth(ISession session);

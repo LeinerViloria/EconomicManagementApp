@@ -15,7 +15,6 @@ namespace EconomicManagementAPP.Controllers
             this.repositorieUsers = repositorieUsers;
         }
 
-        // Creamos index para ejecutar la interfaz
         public async Task<IActionResult> Index()
         {
             if (UsersController.valorSesion is null)
@@ -23,17 +22,25 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("Login", "Users");
             }
             var userId = UsersController.valorSesion.Id;
-            Console.WriteLine("hola soy el user id " + userId);
+
             var accountTypes = await repositorieAccountTypes.GetAccountsTypes(userId);
             return View(accountTypes);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             if (UsersController.valorSesion is null)
             {
                 return RedirectToAction("Login", "Users");
             }
-            return View();
+
+            var accountTypesInDb = await repositorieAccountTypes.GetAccountsTypes(UsersController.valorSesion.Id);
+
+            AccountTypes accountTypes = new()
+            {
+                ExistsAccountsTypesAlready = accountTypesInDb.Any()
+            };
+            
+            return View(accountTypes);
         }
 
         [HttpPost]
@@ -47,14 +54,10 @@ namespace EconomicManagementAPP.Controllers
             accountTypes.UserId = UsersController.valorSesion.Id; ;
             accountTypes.OrderAccount = 1;
 
-            // Validamos si ya existe antes de registrar
-            var accountTypeExist =
-               await repositorieAccountTypes.Exist(accountTypes.Name, accountTypes.UserId);
+            var accountTypeExist = await repositorieAccountTypes.Exist(accountTypes.Name, accountTypes.UserId);
 
             if (accountTypeExist)
             {
-                // AddModelError ya viene predefinido en .net
-                // nameOf es el tipo del campo
                 ModelState.AddModelError(nameof(accountTypes.Name),
                     $"The account {accountTypes.Name} already exist.");
 
@@ -62,12 +65,9 @@ namespace EconomicManagementAPP.Controllers
             }
             accountTypes.DbStatus = true;
             int newId = await repositorieAccountTypes.Create(accountTypes);
-            // Redireccionamos a la lista
-            //return RedirectToAction("Index");
             return RedirectToAction("Create", "Accounts", new { id=newId });
         }
 
-        // Hace que la validacion se active automaticamente desde el front
         [HttpGet]
         public async Task<IActionResult> VerificaryAccountType(string Name)
         {
@@ -76,14 +76,12 @@ namespace EconomicManagementAPP.Controllers
 
             if (accountTypeExist)
             {
-                // permite acciones directas entre front y back
                 return Json($"The account {Name} already exist");
             }
 
             return Json(true);
         }
 
-        //Actualizar
         [HttpGet]
         public async Task<ActionResult> Modify(int id)
         {
@@ -112,11 +110,11 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-            await repositorieAccountTypes.Modify(accountTypes);// el que llega
+            await repositorieAccountTypes.Modify(accountTypes);
             return RedirectToAction("Index","Home");
             
         }
-        // Eliminar
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

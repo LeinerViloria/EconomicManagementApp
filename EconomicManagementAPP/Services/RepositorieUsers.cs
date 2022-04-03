@@ -37,7 +37,9 @@ namespace EconomicManagementAPP.Services
         public async Task<Users> Login(string email, string password)
         {
             using var connection = new  SqlConnection(connectionString);
-            return await connection.QueryFirstOrDefaultAsync<Users>("SELECT * FROM Users WHERE Email = @email AND Password = @password", 
+            return await connection.QueryFirstOrDefaultAsync<Users>("SELECT * " +
+                                                                    "FROM Users " +
+                                                                    "WHERE Email = @email AND Password = @password AND DbStatus=1", 
                                                                     new { email, password });
 
         }
@@ -61,7 +63,6 @@ namespace EconomicManagementAPP.Services
                                             WHERE DbStatus=1 AND Id = @Id", users);
         }
 
-        //Para actualizar se necesita obtener el tipo de cuenta por el id
         public async Task<Users> GetUserById(int id)
         {
             using var connection = new SqlConnection(connectionString);

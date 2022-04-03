@@ -50,19 +50,16 @@ namespace EconomicManagementAPP.Controllers
             if (!ModelState.IsValid)
             {
                 return View(operationTypes);
-            } // Validamos si ya existe antes de registrar
+            } 
             var operationTypesExist =
             await repositorieOperationTypes.Exist(operationTypes.Description); if (operationTypesExist)
             {
-                // AddModelError ya viene predefinido en .net
-                // nameOf es el tipo del campo
                 ModelState.AddModelError(nameof(operationTypes.Description),
                 $"The description {operationTypes.Description} already exist."); return View(operationTypes);
             }
             await repositorieOperationTypes.Create(operationTypes);
-            // Redireccionamos a la lista
+
             return RedirectToAction("Index");
-            // return RedirectToAction("Create", "Accounts");
         }
 
 
@@ -101,10 +98,9 @@ namespace EconomicManagementAPP.Controllers
             }
 
 
-            await repositorieOperationTypes.Modify(operationTypes);// el que llega
+            await repositorieOperationTypes.Modify(operationTypes);
             return RedirectToAction("Index");
         }
-        // Eliminar
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

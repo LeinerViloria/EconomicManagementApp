@@ -32,9 +32,7 @@ namespace EconomicManagementAPP.Controllers
                 UserName = UsersController.valorSesion.Email,
                 AccountTypes = await repositorieAccountTypes.GetAccountsTypes(userId),
                 Accounts = await repositorieAccounts.GetAccounts(userId)
-            };
-            //var  auth = repositorieUsers.Auth(HttpContext.Session);
-            
+            }; 
 
             return !accountAndAccountTypes.AccountTypes.Any() ? RedirectToAction("Create", "AccountTypes") : View(accountAndAccountTypes);
         }
@@ -44,7 +42,6 @@ namespace EconomicManagementAPP.Controllers
             return View();
         }
 
-        // Interfaz para error de no encontrar el id
         public IActionResult  Overrride  ()
         {
             return View();
@@ -54,6 +51,11 @@ namespace EconomicManagementAPP.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult NotFound()
+        {
+            return View();
         }
     }
 }

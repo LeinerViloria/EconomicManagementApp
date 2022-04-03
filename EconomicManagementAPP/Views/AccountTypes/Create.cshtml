@@ -3,20 +3,42 @@
     ViewData["Title"] = "Account types";
 }
 
-<h1>Register account type</h1>
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-<form asp-action="Create">
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input type="text" asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"> </span>
+<div class="card smallCard">
+    <div class="card-body">
+        <h3 class="text-center">Register account type</h3>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Create">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input type="text" asp-for="Name" class="form-control" autofocus />
+                <span asp-validation-for="Name" class="text-danger"> </span>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary spaceBetweentButtons">Create</button>
+                <a class="btn btn-secondary spaceBetweentButtons" asp-controller="Home" asp-action="Index">Cancel</a>
+            </div>
+        </form>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Cancel</a>
+</div>
 
-
-</form>
+@*
+    Este toast se mostrará como guia para el usuario, indicandole qué hacer
+*@
+@if (!Model.ExistsAccountsTypesAlready)
+{
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div class="toast" id="accountTypeToast" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <img src="~/images/add.png" class="rounded me-2" alt="Add" />
+            <strong class="me-auto">Heey! Welcome</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            You don't have account types, please create one
+          </div>
+        </div>
+    </div>
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial"/>

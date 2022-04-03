@@ -29,3 +29,27 @@ body {
 .headerSpacer {
     flex: 1 1 auto;
 }
+
+.cardLogin{
+    margin:0px auto;
+    min-height: 300px;
+    max-width:400px;
+}
+
+.smallCard {
+    margin: 0px auto;
+    min-height: 200px;
+    max-width: 400px;
+}
+
+.buttons {
+    width: 80%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spaceBetweentButtons{
+    margin: 10px 10px;
+}
