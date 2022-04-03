@@ -11,18 +11,13 @@ namespace EconomicManagementAPP.Validations
             {
                 return ValidationResult.Success;
             }
-
-            double num;
-            //double num = Double.Parse(value.ToString());
-            if (!Double.TryParse(value.ToString(), out num))
+            if (!Double.TryParse(value.ToString(), out double num))
             {
                 return new ValidationResult("The balance must be a decimal");
             }
-           // value = num;
-          //  Console.WriteLine(value);
             if (num < 0)
             {
-                return new ValidationResult("The balance must be greater than zero");
+                return new ValidationResult("The balance must be equals or greater than zero");
             }
 
             return ValidationResult.Success;
