@@ -6,16 +6,14 @@ namespace EconomicManagementAPP.Validations
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-           
-            if (value == null || string.IsNullOrEmpty(value.ToString()))
-            {
-                return ValidationResult.Success;
-            }
-            if (!Double.TryParse(value.ToString(), out double num))
+            value = (value == null || string.IsNullOrEmpty(value.ToString())) ? "0" : value.ToString().Replace(".", ",");
+
+            if (!Decimal.TryParse(value.ToString(), out Decimal numBalance))
             {
                 return new ValidationResult("The balance must be a decimal");
             }
-            if (num < 0)
+            
+            if (numBalance < 0)
             {
                 return new ValidationResult("The balance must be equals or greater than zero");
             }

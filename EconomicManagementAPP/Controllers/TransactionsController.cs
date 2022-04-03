@@ -75,11 +75,12 @@ namespace EconomicManagementAPP.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-           
+            transactions.Money = (transactions.Money is null) ? "0" : transactions.Money.ToString().Replace(".", ",");
 
             transactions.UserId = UsersController.valorSesion.Id;
             transactions.TransactionDate = DateTime.Now;
-                       
+            transactions.Total = Decimal.Parse(transactions.Money);
+
             await repositorieTransactions.Create(transactions);
             var operationType = await repositorieOperationTypes.GetOperationTypeByCategoryId(transactions.CategoryId, transactions.UserId);
             if (transactions.Id > 0)

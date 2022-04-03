@@ -11,6 +11,8 @@ namespace EconomicManagementAPP.Models
         public DateTime TransactionDate { get; set; }
         [MinZero]
         public decimal Total { get; set; }
+        [MinZero]
+        public string Money { get; set; }
         public string Description { get; set; }
         public int AccountId { get; set; }
         [Display(Name = "Category")]

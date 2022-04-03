@@ -24,7 +24,7 @@ namespace EconomicManagemenAPP.test
         public void NullData_NoErrorMessage()
         {
             var firstCapitalLetter = new FirstCapitalLetter();
-            string data = null;
+            string? data = null;
 
             var context = new ValidationContext(new { Name = data });
 

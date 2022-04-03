@@ -10,6 +10,7 @@ namespace EconomicManagementAPP.Models
         [FirstCapitalLetter]
         public string Name { get; set; }
         [Required(ErrorMessage = "{0} is required")]
+        [Display(Name = "Operation type")]
         public int OperationTypeId { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         public int UserId { get; set; }

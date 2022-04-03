@@ -62,13 +62,8 @@ namespace EconomicManagementAPP.Controllers
 
             accounts.Money = (accounts.Money is null) ? "0" : accounts.Money.ToString().Replace(".", ",");
 
-            if (!Decimal.TryParse(accounts.Money.ToString(), out Decimal numBalance))
-            {
-                ModelState.AddModelError(nameof(accounts.Money),
-                    $"The value {accounts.Money} is not valid in controller.");
-            }
             accounts.DbStatus = true;
-            accounts.Balance = numBalance;
+            accounts.Balance = Decimal.Parse(accounts.Money.ToString());
 
             await repositorieAccounts.Create(accounts);
             return RedirectToAction("Index", "Home");
