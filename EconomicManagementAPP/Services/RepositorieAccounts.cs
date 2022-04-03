@@ -41,9 +41,10 @@ namespace EconomicManagementAPP.Services
                                                         ON a.AccountTypeId=at.Id
                                                         JOIN Users AS u
                                                         ON u.Id=[at].UserId
-                                                        WHERE [at].UserId=@UserId AND [a].DbStatus=1  AND [at].DbStatus=1 AND u.DbStatus=1", new { UserId });
+                                                        WHERE [at].UserId=@UserId AND [a].DbStatus=1  AND [at].DbStatus=1 AND u.DbStatus=1
+                                                        ORDER BY 2", new { UserId });
         }
-        // Actualizar
+        
         public async Task Modify(Accounts accounts)
         {
             using var connection = new SqlConnection(connectionString);
@@ -58,7 +59,8 @@ namespace EconomicManagementAPP.Services
             return await connection.QueryFirstOrDefaultAsync<Accounts>(@"
                                                                 SELECT Id, Name, AccountTypeId ,Balance, Description, dbStatus
                                                                 FROM Accounts
-                                                                WHERE Id = @Id  AND dbStatus=1",
+                                                                WHERE Id = @Id  AND dbStatus=1
+                                                                ORDER BY 2",
                                                                 new { id });
         }
 
@@ -76,12 +78,8 @@ namespace EconomicManagementAPP.Services
         }
         public async Task<int> GetNumberTransaction(int id)
         {
-            Console.WriteLine(id);
             using var connection = new SqlConnection(connectionString);
-            int numberTransaction = await connection.QuerySingleAsync<int>("SELECT COUNT (AccountId) AS CantidadTransaciones FROM Transactions WHERE AccountId = @Id;", new { id });
-            Console.WriteLine(numberTransaction);
-
-            return numberTransaction;
+            return await connection.QuerySingleAsync<int>("SELECT COUNT (AccountId) AS CantidadTransaciones FROM Transactions WHERE AccountId = @Id;", new { id });
         }
         public async Task<bool> ExistingAccountTransaction(int Id)
         {

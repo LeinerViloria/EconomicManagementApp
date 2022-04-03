@@ -42,7 +42,8 @@ namespace EconomicManagementAPP.Services
                                                              FROM AccountTypes AS [at]
                                                              JOIN Users AS u
                                                              ON u.Id=[at].UserId
-                                                             WHERE [at].UserId=@UserId AND [at].DbStatus=1 AND u.DbStatus=1", new { UserId });
+                                                             WHERE [at].UserId=@UserId AND [at].DbStatus=1 AND u.DbStatus=1
+                                                             ORDER BY 2", new { UserId });
         }
         public async Task Modify(AccountTypes accountTypes)
         {

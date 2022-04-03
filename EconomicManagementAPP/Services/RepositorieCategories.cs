@@ -38,8 +38,8 @@ namespace EconomicManagementAPP.Services
 															FROM  Categories AS c 
 															JOIN OperationTypes AS [ot] 
 															ON c.OperationTypeId=ot.Id
-				
-                                                    WHERE [c].UserId=@UserId", new { UserId});
+				                                            WHERE [c].UserId=@UserId
+                                                            ORDER BY 2", new { UserId});
             
 
         }

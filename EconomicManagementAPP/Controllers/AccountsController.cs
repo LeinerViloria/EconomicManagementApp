@@ -16,8 +16,6 @@ namespace EconomicManagementAPP.Controllers
             this.repositorieAccountTypes = repositorieAccountTypes;
             this.repositorieUsers = repositorieUsers;
         }
-
-        // Creamos index para ejecutar la interfaz
         public IActionResult Index()
         {
             return RedirectToAction("Index", "Home");

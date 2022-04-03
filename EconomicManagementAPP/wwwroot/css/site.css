@@ -53,3 +53,15 @@ body {
 .spaceBetweentButtons{
     margin: 10px 10px;
 }
+
+.menuOption {
+    text-shadow: 0.4px 0.2px 0.2px #9c9393, 0.1px 0.1px 0px #9c9393, 0.2px 0.2px 0px #9c9393;
+    transition: all 500ms;
+    letter-spacing: 1px;
+}
+
+.menuOption:hover {
+    cursor: pointer;
+    letter-spacing: 1.5px;
+    text-shadow: 0px 0px 0px #9c9393, -0.6px -0.6px 0px #9c9393, -0.8px -0.8px 0px #9c9393;
+}

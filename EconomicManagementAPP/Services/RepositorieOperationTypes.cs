@@ -68,12 +68,11 @@ namespace EconomicManagementAPP.Services
         public async Task<string> GetOperationTypeByCategoryId(int categoryId, int userId)
         {
             using var connection = new SqlConnection(connectionString);
-            var description = await connection.QuerySingleAsync<string>(@"SELECT o.Description
+            return await connection.QuerySingleAsync<string>(@"SELECT o.Description
                                                                 FROM Categories as c
                                                                 JOIN OperationTypes as o
                                                                 ON c.OperationTypeId=o.Id
                                                                 WHERE c.Id=@categoryId  AND c.UserId = @UserId", new { categoryId, userId });
-            return description;
         }
     }
 }
