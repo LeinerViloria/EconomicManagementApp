@@ -10,7 +10,12 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Archivos varios",
       "ColorIndex": -1
+    },
+    "79b3a17d-3fe8-4dc2-95db-ea9d22a481c6": {
+      "ProjectGuid": "79b3a17d-3fe8-4dc2-95db-ea9d22a481c6",
+      "DisplayName": "EconomicManagementAPP.test",
+      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }
